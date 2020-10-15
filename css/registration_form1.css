@@ -1,0 +1,92 @@
+.aeslogo img{
+	width:80% !important;
+	margin-left: 10%;
+    max-height: 100% !important;
+}
+.navbar-content{
+	/*background-color: rgb(55, 87, 103) !important;*/
+	/*border-bottom:2px solid;*/
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 40px !important;
+}
+.bootstrap-select.btn-group.show-tick .dropdown-menu li a span.text {
+    margin-left: 34px !important;
+}
+.bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark {
+   
+    left : 15px !important;
+}
+.calendar thead {
+    background-color: #177bbb;
+}
+.calendar thead th{
+    color: #fff !important;
+}
+.calendar .day{
+     background-color: #fff;
+}.page-header {
+    font-size: 1.5em !important;
+}
+.media .large-icon{
+color:#8b5b9f !important;
+}
+.large-icon {
+    font-size: 1.5em !important;
+}
+.btn-link{
+    cursor:pointer;
+}
+#container .table th,#container .table td {
+    font-size: .9em !important;
+}
+
+@media (min-width: 768px){
+.navbar-header:before {
+    background-color: #fff !important;
+}}
+
+#dropdown-user .ic-user {
+    font-size: 1.5em;
+    height: 5px !important;
+    line-height: 59px;
+}
+@media only screen and (max-width: 600px) {
+#dropdown-user .ic-user {
+    font-size: 1.5em;
+    height: 35px !important;
+    line-height: 59px;
+}}
+.modal_footer {
+    text-align: right;
+        background-color: transparent;
+    color: #8f9ea6;
+    border-color: rgba(0,0,0,.1);
+    padding: 10px 15px;
+
+}
+::-webkit-scrollbar {
+    width: 12px;
+    height:5px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: purple; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+.dropdown-menu {
+    z-index:10000 !important;
+}
+.bootstrap-select .btn.btn-default.dropdown-toggle, .bootstrap-select .btn.btn-default.dropdown-toggle:hover{
+    color:#ccc !important;
+}
+.panel-heading h3{
+    text-align: left;
+}
+}
