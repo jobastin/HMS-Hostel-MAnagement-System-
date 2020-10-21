@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--  <title>AJCE MCA APPLICATION</title>
+    -->
+    
+    <link rel="icon" type="image/ico" href="../aesicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>AJCE MCA:ALPHIN PAUL SAJI-9086</title>
+
+<link href="registraion_form.css" rel="stylesheet">
+    <link href="registration_form1.css" rel="stylesheet">
+    <script src="test.js"></script>
+    <script src="js/validate.js"></script>
+    <script src="registraion_form.js"></script>
+  </head>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-lg">
+<div class="boxed">
+            <div id="content-container">
+                <div id="page-content">
+                    <div class="panel">
+                        
+                        <div class="panel-body">
+                            <form action="registrationAction.php" method="post" enctype="multipart/form-data">
+                            <div class="table-responsive">
+                            <table class="table">
+                                               <tr>
+                                                   <td colspan="5"><center><h4>HOSTEL REGISTRATION</h4></center></td>
+                                               </tr>
+                                                <tr>
+                                                    <th valign="top">Name</th>
+                                                    <td><input type="text" class="form-control"  placeholder="Name of Hostel" name="hstlname" id="hstlname" oninput="valhstlname();"  required /></td>
+                                                    <td width="50px"></td>
+                                                    <th valign="top">Category</th>
+                                                    <td>	
+                                                        <select class="form-control"name="category" style="width: 200px" required>
+                                                            <option value="">-Select-</option>
+                                                            <option value="General" >Male</option>
+                                                            <option value="SC/ST" >Female</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th valign="top">Total Capacity</th>
+                                                    <td><input type="number" class="form-control" name="totalcap" placeholder="00000" id="totalcap" onblur="valCapacity();" required /></td>
+                                                     <td width="50px"></td><th valign="top">Email</th>
+                                                    <td><input type="email" class="form-control" name="hstlemail" id="hstlemail" placeholder="example@something.com" onblur="valhstlEmail();" required /></td>
+                                                    <td></td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th valign="top">Telephone</th>
+                                                    <td><input type="text" class="form-control" name="hstltele" id="hstltele" onblur="valhstlTele();" placeholder="04922654889"  maxlength="12" required /></td>
+                                                     <td width="50px"></td><th valign="top">Mobile</th>
+                                                    <td><input type="text" class="form-control" name="hstlmob" id="hstlmob" onblur="valhstlMob();" placeholder="1234567890" required /></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th valign="top" style="line-height: 12px"></th>
+                                                    <td>
+                                                    </td>
+
+                                                    <td></td>
+                                                </tr> 
+                                                <tr><td colspan="5">
+                                                <hr></td>
+                                                </tr>
+                                                 <tr>
+                                                    <th valign="top" colspan="2" style="text-align:center;/*border1px solid #ccc*/"> Address
+                                                    </th><td width="50px"></td>
+                                                    <td></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th valign="top">Address line </th>
+                                                    <td><input type="text" class="form-control"  name="hstlAdr" maxlength="150"   id="hstlAdr"  onblur="valhstlAdr()" placeholder="Street, House name" required /></td>
+                                                    <td width="50px"></td>
+                                                    <th valign="top">Pincode</th>
+                                                    <td><input type="text" class="form-control" name="hstlPin" id="hstlPin"  onblur="valhstlPin()" placeholder="0000000" required /></td>
+                                                    <td></td>
+                                                </tr>
+                                               <tr>
+                                                    <th valign="top">State</th>
+                                                    <td><select class="form-control"style="width: 200px" name="permstate" id="permstate" tabindex="3" required >
+                                                                    <option value="">-Select-</option>
+                                                                    <option value="1" >Kerala</option>
+                                                                    <option value="2" >Outside Kerala</option>
+                                                                    <option value="3" >Outside India</option>
+                                                                    </select>
+                                                                    </td>
+                                                                    <td width="50px"></td>
+                                                    <th valign="top"  >District</th>
+                                                    <td class="keraladist" ><select class="form-control" style="width: 200px "   name="permdistrict" id="permdistrict" tabindex="4" required >
+                                                                    <option value="">-Select-</option>
+                                                                    <option value="1" >Kottayam</option>
+                                                                    <option value="2" >Thiruvananthapuram</option>
+                                                            </select></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr><td colspan="5"><hr>
+                                                        </td></tr>
+                                                        <tr>
+                                                   <td colspan="5"><center><h4>HOSTEL MANAGER REGISTRATION</h4></center></td>
+                                               </tr>
+                                               <tr>
+                                                    <th valign="top">Name</th>
+                                                    <td><input type="text" class="form-control"  placeholder="Name of Manager" name="Mname" id="Mname" onblur="valMname()" required /></td>
+                                                    <td width="50px"></td>
+                                                    <th valign="top">Gender</th>
+                                                    <td>	
+                                                        <select class="form-control"name="category" style="width: 200px" required>
+                                                            <option value="">-Select-</option>
+                                                            <option value="General" >Male</option>
+                                                            <option value="SC/ST" >Female</option>
+                                                        </select>
+                                                    </td>
+                                </tr>
+                                                <tr>
+                                                    <th valign="top">Email</th>
+                                                    <td><input type="email" class="form-control" name="Memail" id="Memail" onblur="valMemail()" placeholder="example@something.com" required /></td>
+                                                     <td width="50px"></td><th valign="top">Mobile</th>
+                                                    <td><input type="text" class="form-control" name="Mmobile" id="Mmobile" onblur="valMmobile()" placeholder="1234567890" required /></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th valign="top" style="line-height: 12px"></th>
+                                                    <td>
+                                                    </td>
+
+                                                    <td></td>
+                                                </tr> 
+                                                <tr><td colspan="5">
+                                                <hr></td>
+                                                </tr>
+                                                 <tr>
+                                                    <th valign="top" colspan="2" style="text-align:center;/*border1px solid #ccc*/"> Address
+                                                    </th><td width="50px"></td>
+                                                    <td></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th valign="top">Address line </th>
+                                                    <td><input type="text" class="form-control"  name="MAdr" id="MAdr"  onblur="valMadr()" placeholder="Street, House name" required /></td>
+                                                    <td width="50px"></td>
+                                                    <th valign="top">Pincode</th>
+                                                    <td><input type="text" class="form-control" name="Mpin" id="Mpin"  onblur="valMpin()" placeholder="0000000" required /></td>
+                                                    <td></td>
+                                                </tr>
+                                               <tr>
+                                                    <th valign="top">State</th>
+                                                    <td><select class="form-control"style="width: 200px"  name="permstate" id="permstate" required>
+                                                            <option value="">-Select-</option>
+                                                                    <option value="1" >Kerala</option>
+                                                                    <option value="2" >Outside Kerala</option>
+                                                                    <option value="3" >Outside India</option>
+                                                                    </select>
+                                                                    </td>
+                                                                    <td width="50px"></td>
+                                                    <th valign="top"  >District</th>
+                                                    <td class="keraladist" ><select class="form-control" style="width: 200px "  name="permdistrict" id="permdistrict" required>
+                                                            <option value="">-Select-</option>
+                                                                    <option value="1" >Kottayam</option>
+                                                                    <option value="2" >Thiruvananthapuram</option>
+                                                            </select></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr><td colspan="5"><hr>
+                                                        </td></tr>
+                                                        <tr>
+                                                        <tr>
+                                                    <th valign="top">USERNAME</th>
+                                                    <td><input type="text" class="form-control" name="telephone" placeholder="username" required /></td>
+                                                     <td width="50px"></td><th valign="top">PASSWORD</th>
+                                                    <td><input type="password" class="form-control" name="email" placeholder="****" required /></td>
+                                                    <td></td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th valign="top">CONFRIM PASSWORD</th>
+                                                    <td><input type="password" class="form-control" name="telephone" placeholder="******" required /></td>
+                                                     <td width="50px">
+                                                </tr>
+                                            <tr>
+                                                <th>&nbsp;</th>
+                                                <td valign="top">
+                                                    <input type="submit" disabled = "true" id='reg' value="REGISTER" class="btn btn-primary" />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+<tr>
+                                                 <td valign="top" colspan="6">
+ <br><br>
+                                                     </td>
+                                                 </tr>
+                                        </table>
+                                        </div>
+                                        </form>
+                        </div>
+                    </div>
+                </div>    
+            </div>        
+                 </div>                     
+    </div>
+    </body>
+    </html>
+    
