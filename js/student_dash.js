@@ -1,3 +1,60 @@
+function dashboard()
+{
+    document.getElementById("dashboard").style.display ="inline";
+    document.getElementById("complaint").style.display ="none";
+    document.getElementById("notice").style.display ="none";
+    document.getElementById("laundry").style.display ="none";
+    document.getElementById("mess").style.display ="none";
+    document.getElementById("vacate").style.display ="none";
+}
+function complaint()
+{
+    document.getElementById("dashboard").style.display ="none";
+    document.getElementById("complaint").style.display ="inline";
+    document.getElementById("notice").style.display ="none";
+    document.getElementById("laundry").style.display ="none";
+    document.getElementById("mess").style.display ="none";
+    document.getElementById("vacate").style.display ="none";
+}
+function notice()
+{
+    document.getElementById("dashboard").style.display ="none";
+    document.getElementById("complaint").style.display ="none";
+    document.getElementById("notice").style.display ="inline";
+    document.getElementById("laundry").style.display ="none";
+    document.getElementById("mess").style.display ="none";
+    document.getElementById("vacate").style.display ="none";
+}
+function laundry()
+{
+    document.getElementById("dashboard").style.display ="none";
+    document.getElementById("complaint").style.display ="none";
+    document.getElementById("notice").style.display ="none";
+    document.getElementById("laundry").style.display ="inline";
+    document.getElementById("mess").style.display ="none";
+    document.getElementById("vacate").style.display ="none";
+}
+function mess()
+{
+    document.getElementById("dashboard").style.display ="none";
+    document.getElementById("complaint").style.display ="none";
+    document.getElementById("notice").style.display ="none";
+    document.getElementById("laundry").style.display ="none";
+    document.getElementById("mess").style.display ="inline";
+    document.getElementById("vacate").style.display ="none";
+}
+function vacate()
+{
+    document.getElementById("dashboard").style.display ="none";
+    document.getElementById("complaint").style.display ="none";
+    document.getElementById("notice").style.display ="none";
+    document.getElementById("laundry").style.display ="none";
+    document.getElementById("mess").style.display ="none";
+    document.getElementById("vacate").style.display ="inline";
+}
+
+
+
 var data = [
   { year: '2012', a: 24.6, b: 30.9, c:24.8 },
   { year: '2013', a: 30.0, b: 27.5, c:20.0 },
@@ -37,3 +94,4 @@ $(function () {
     $('.side-footer').toggleClass('full-width'); 
   });
 });
+
