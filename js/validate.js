@@ -5,16 +5,16 @@ function checkPassword(text){
     return (/^.{8,}$/.test(text));
 }
 function checkPhone(number){
-    return (/^(7|8|9)[0-9]{9}$/.test(number));
+    return (/^(6|7|8|9)[0-9]{9}$/.test(number));
 }
 function checkNumber(number){
     return (/^[0-9]{1,}$/.test(number));
 }
 function checkName(text){
-    return (/^[A-Za-z]+$/.test(text));
+    return (/^[A-Za-z ]+$/.test(text));
 }
 function checkAddress(text){
-    return (/[A-Za-z0-9,()]+$/.test(text));
+    return (/[A-Za-z0-9, ()]+$/.test(text));
 }
 function checkPin(number){
     return (/^[0-9]{6}$/.test(number));
@@ -34,7 +34,8 @@ function valhstlname()
             } 
             else
                 {
-                   document.getElementById("hstlname").style.borderColor = "red"; 
+                   document.getElementById("hstlname").style.borderColor = "red";
+                   document.getElementById("hstlnames").innerHTML = "Paragraph changed!";    
                     c[0]=0;
                 }
                 button();

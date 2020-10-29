@@ -1,3 +1,7 @@
+<?php
+require('fun.php');
+$con = connect();
+?>
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
@@ -8,8 +12,50 @@
 	<link href="registraion_form.css" rel="stylesheet">
     <link href="registration_form1.css" rel="stylesheet">
     <script src="test.js"></script>
-    <script src="js/validate.js"></script>
+    <script language="JavaScript" src="js/validate.js"></script>
     <script src="registraion_form.js"></script>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+   
+    <script>
+    //for district selection
+$(document).ready(function(){
+    $('#permstate').on('change', function(){
+        var countryID = $(this).val();
+        if(countryID){
+            $.ajax({
+                type:'post',
+                url:'district.php',
+                data:'st_id='+countryID,
+                success:function(html){
+                    $('#permdistrict').html(html); 
+                }
+            }); 
+        }else{
+            $('#permdistrict').html('<option value="">Select state first</option>');
+        }
+    });
+});
+    
+
+$(document).ready(function(){
+    $('#mstate').on('change', function(){
+        var countryID = $(this).val();
+        if(countryID){
+            $.ajax({
+                type:'post',
+                url:'district.php',
+                data:'st_id='+countryID,
+                success:function(html){
+                    $('#mdistrict').html(html); 
+                }
+            }); 
+        }else{
+            $('#mdistrict').html('<option value="">Select state first</option>');
+        }
+    });
+});
+</script>  
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -30,38 +76,38 @@
             <button id="goLeft" class="signup off" style="float: right;">Back to Login</button> 
           </div>
         <br>
-        <form action="registrationAction.php" method="post" enctype="multipart/form-data">
+        <form action="register.php" method="POST">
                             <table class="table">
                                                <td colspan="5"><center><h4>HOSTEL REGISTRATION</h4></center></td>
                                                 <tr>
                                                     <th valign="top">Name</th>
-                                                    <td><input type="text" class="form-control"  placeholder="Name of Hostel" name="hstlname" id="hstlname" oninput="valhstlname();"  required /></td>
+                                                    <td><input type="text" class="form-control"  placeholder="Name of Hostel" name="hstlname" id="hstlname" oninput="valhstlname();" onkeypress="return /[a-zA-Z ]/i.test(event.key)" required />
                                                     <td width="50px"></td>
                                                     <th valign="top">Category</th>
                                                     <td>	
-                                                        <select class="form-control"name="category" style="width: 200px" required>
+                                                        <select class="form-control" name="category" style="width: 200px" required>
                                                             <option value="">-Select-</option>
-                                                            <option value="General" >Male</option>
-                                                            <option value="SC/ST" >Female</option>
+                                                            <option value="Male" >Male</option>
+                                                            <option value="Female" >Female</option>
                                                         </select>
                                                     </td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th valign="top">Total Capacity</th>
-                                                    <td><input type="number" class="form-control" name="totalcap" placeholder="00000" id="totalcap" onblur="valCapacity();" required /></td>
+                                                    <td><input type="number" class="form-control" name="totalcap" placeholder="Max Capacity of Hostel" id="totalcap" onblur="valCapacity();" required /></td>
                                                     <td width="50px" valign="top"></td><th>Email</th>
                                                     <td><input type="email" class="form-control" name="hstlemail" id="hstlemail" placeholder="example@something.com" onblur="valhstlEmail();" required /></td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th valign="top">Telephone</th>
-                                                    <td><input type="text" class="form-control" name="hstltele" id="hstltele" onblur="valhstlTele();" placeholder="04922654889"  maxlength="12" required /></td>
+                                                <td><input type="text" class="form-control" name="hstltele" id="hstltele" onblur="valhstlTele();" placeholder="Eg : 04952804990"  maxlength="12" onkeypress="return /[0-9]/i.test(event.key)" required /><br>
+                                                <span>Telephone number with code.No space or '-' in between</span></td>
                                                      <td width="50px" valign="top"></td><th>Mobile</th>
-                                                    <td><input type="text" class="form-control" name="hstlmob" id="hstlmob" onblur="valhstlMob();" placeholder="1234567890" required /></td>
+                                                    <td><input type="text" class="form-control" name="hstlmob" id="hstlmob" onblur="valhstlMob();" placeholder="10 digit molie number" onkeypress="return /[0-9]/i.test(event.key)" required /></td>
                                                 </tr>
-                                                <tr><td colspan="5">
-                                                <hr></td>
+                                                <tr>
                                                 </tr>
                                                  <tr>
                                                     <th valign="top" colspan="5" style="text-align:center;/*border1px solid #ccc*/"> Address
@@ -73,24 +119,30 @@
                                                     <td><input type="text" class="form-control"  name="hstlAdr" maxlength="150"   id="hstlAdr"  onblur="valhstlAdr()" placeholder="Street, House name" required /></td>
                                                     <td width="50px"></td>
                                                     <th valign="top">Pincode</th>
-                                                    <td><input type="text" class="form-control" name="hstlPin" id="hstlPin"  onblur="valhstlPin()" placeholder="0000000" required /></td>
+                                                    <td><input type="text" class="form-control" name="hstlPin" id="hstlPin"  onblur="valhstlPin()" placeholder="Eg : 673571" onkeypress="return /[0-9]/i.test(event.key)" required /></td>
                                                 </tr>
                                                <tr>
                                                     <th valign="top">State</th>
                                                     <td><select class="form-control"style="width: 200px" name="permstate" id="permstate" tabindex="3" required >
                                                                     <option value="">-Select-</option>
-                                                                    <option value="1" >Kerala</option>
-                                                                    <option value="2" >Outside Kerala</option>
-                                                                    <option value="3" >Outside India</option>
-                                                                    </select>
+                                    <?php
+                                    $res=mysqli_query($con,"SELECT `st_id`,`st_name` FROM `tbl_state_list` WHERE `status`=1 ORDER BY `st_name` ASC")or die("Sign in Error");
+                                    mysqli_close($con);
+                                    while($s = mysqli_fetch_array($res))
+                                    {
+                                        ?>
+                                        <option value="<?php echo $s['st_id']; ?>" ><?php echo $s['st_name']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                                            </select>
                                                                     </td>
                                                                     <td width="50px"></td>
                                                     <th valign="top"  >District</th>
-                                                    <td class="keraladist" ><select class="form-control" style="width: 200px "   name="permdistrict" id="permdistrict" tabindex="4" required >
-                                                                    <option value="">-Select-</option>
-                                                                    <option value="1" >Kottayam</option>
-                                                                    <option value="2" >Thiruvananthapuram</option>
+                                                    <td ><select class="form-control" style="width: 200px "   name="permdistrict" id="permdistrict" tabindex="4" required >
+                                                                    <option value="">-Select state first-</option>
                                                             </select></td>
+                                            
                                                 </tr>
                                                 <tr><td colspan="5"><hr>
                                                         </td></tr>
@@ -99,14 +151,15 @@
                                                </tr>
                                                <tr>
                                                     <th valign="top">Name</th>
-                                                    <td><input type="text" class="form-control"  placeholder="Name of Manager" name="Mname" id="Mname" onblur="valMname()" required /></td>
+                                                    <td><input type="text" class="form-control"  placeholder="Name of Manager" name="Mname" id="Mname" onblur="valMname()"  onkeypress="return /[a-zA-Z ]/i.test(event.key)" required />
+                                                   </td>
                                                     <td width="50px"></td>
                                                     <th valign="top">Gender</th>
                                                     <td>	
-                                                        <select class="form-control"name="category" style="width: 200px" required>
+                                                        <select class="form-control" name="Mgender" style="width: 200px" required>
                                                             <option value="">-Select-</option>
-                                                            <option value="General" >Male</option>
-                                                            <option value="SC/ST" >Female</option>
+                                                            <option value="Male" >Male</option>
+                                                            <option value="Female" >Female</option>
                                                         </select>
                                                     </td>
 												</tr>
@@ -114,14 +167,12 @@
                                                     <th valign="top">Email</th>
                                                     <td><input type="email" class="form-control" name="Memail" id="Memail" onblur="valMemail()" placeholder="example@something.com" required /></td>
                                                      <td width="50px"></td><th valign="top">Mobile</th>
-                                                    <td><input type="text" class="form-control" name="Mmobile" id="Mmobile" onblur="valMmobile()" placeholder="1234567890" required /></td>
+                                                    <td><input type="text" class="form-control" name="Mmobile" id="Mmobile" onkeypress="return /[0-9]/i.test(event.key)" onblur="valMmobile()" placeholder="10 digit molie number" required /></td>
                                                 </tr>
                                                 <tr>
-                                                    <th valign="top" style="line-height: 12px"></th>
-                                                    <td>
+                                                    <td colspan="5">
                                                     </td>
 
-                                                    <td></td>
                                                 </tr> 
                                                 <tr><td colspan="5">
                                                 <hr></td>
@@ -136,23 +187,32 @@
                                                     <td><input type="text" class="form-control"  name="MAdr" id="MAdr"  onblur="valMadr()" placeholder="Street, House name" required /></td>
                                                     <td width="50px"></td>
                                                     <th valign="top">Pincode</th>
-                                                    <td><input type="text" class="form-control" name="Mpin" id="Mpin"  onblur="valMpin()" placeholder="0000000" required /></td>
+                                                    <td><input type="text" class="form-control" name="Mpin" id="Mpin"  onblur="valMpin()" placeholder="Eg : 673571" onkeypress="return /[0-9]/i.test(event.key)" required /></td>
                                                 </tr>
                                                <tr>
                                                     <th valign="top">State</th>
-                                                    <td><select class="form-control"style="width: 200px"  name="permstate" id="permstate" required>
+                                                    <td><select class="form-control"style="width: 200px"  name="mstate" id="mstate" required>
                                                             <option value="">-Select-</option>
-                                                                    <option value="1" >Kerala</option>
-                                                                    <option value="2" >Outside Kerala</option>
-                                                                    <option value="3" >Outside India</option>
+                                                                    
+                                                        <?php
+                                                        $con = connect();
+                                    $res=mysqli_query($con,"SELECT `st_id`,`st_name` FROM `tbl_state_list` WHERE `status`=1 ORDER BY `st_name` ASC")or die("Sign in Error");
+                                    mysqli_close($con);
+                                    while($s = mysqli_fetch_array($res))
+                                    {
+                                        ?>
+                                        <option value="<?php echo $s['st_id']; ?>" ><?php echo $s['st_name']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                                        
+                                                        
                                                                     </select>
                                                                     </td>
                                                                     <td width="50px"></td>
                                                     <th valign="top"  >District</th>
-                                                    <td class="keraladist" ><select class="form-control" style="width: 200px "  name="permdistrict" id="permdistrict" required>
+                                                    <td class="keraladist" ><select class="form-control" style="width: 200px "  name="mdistrict" id="mdistrict" required>
                                                             <option value="">-Select-</option>
-                                                                    <option value="1" >Kottayam</option>
-                                                                    <option value="2" >Thiruvananthapuram</option>
                                                             </select></td>
                                                 </tr>
                                                 <tr><td colspan="5"><hr>
@@ -160,14 +220,20 @@
                                                         <tr>
                                                         <tr>
                                                     <th valign="top">USERNAME</th>
-                                                    <td><input type="text" class="form-control" name="telephone" placeholder="username" required /></td>
+                                                    <td><input type="text" class="form-control" name="Muname" placeholder="username" required />
+                                                            <br>
+                                                            <span>Can contain letters (a-z), numbers (0-9)</span></td>
                                                      <td width="50px"></td><th valign="top">PASSWORD</th>
-                                                    <td><input type="password" class="form-control" name="email" placeholder="****" required /></td>
+                                                    <td><input type="password" class="form-control" name="Mpass" id="Mpass" placeholder="********" required />
+                                                    <br>
+                                                            <span>Minimum length 8</span>
+                                                            </td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th valign="top">CONFRIM PASSWORD</th>
-                                                    <td><input type="password" class="form-control" name="telephone" placeholder="******" required /></td>
+                                                    <td><input type="password" class="form-control" name="Mcpass" id="Mcpass" placeholder="********" required />
+                                                    <span id='message'></span></td>
                                                      <td width="50px">
                                                 </tr>
                                                 <tr>
@@ -175,7 +241,6 @@
                                                 <td valign="top">
                                                     <input type="submit" disabled = "true" id='reg' value="REGISTER" class="btn btn-primary" />
                                                 </td>
-                                                <td></td>
                                                 </tr>
 												<tr>
                                                 <td valign="top" colspan="6">
@@ -211,8 +276,37 @@
     </div>
   </div>
 </div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.3/paper-full.min.js'></script><script  src="js/login.js"></script>
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.3/paper-full.min.js'></script>
+<script  src="js/login.js"></script>
+<script>
+    
+    $('#Mpass, #Mcpass').on('keyup', function () {
+  if ($('#Mpass').val() == $('#Mcpass').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+    
+function checkName(text){
+    return (/^[A-Za-z ]+$/.test(text));
+}
+var c=[0,0,0,0,0,0,0,0,0,0,0,0];
+function valhstlname()
+        {
+            
+            var hname = document.getElementsByName('hstlname')[0];
+            if (checkName(hname.value)){
+                document.getElementById("hstlname").style.borderColor = "green";
+                c[0]=1;   
+            } 
+            else
+                {
+                   document.getElementById("hstlname").style.borderColor = "red"; 
+                    c[0]=0;
+                }
+                button();
+        }
+    </script>
 </body>
 </html>
