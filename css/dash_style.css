@@ -28,7 +28,7 @@ sidebar
 	left: -50px;
     overflow-y: auto;
     overflow-x: hidden;
-    background: #222e3c;
+    background: #5889AB;
     transition: all 0.5s ease;
 }
 
@@ -58,10 +58,10 @@ sidebar
 }
 
 .navbar-nav > li > a ,.submenu-box ul li a{
-    color:gray!important;
+    color:black;
     text-transform: capitalize;
     font-size: 14px;
-	  padding:10px 10px 10px 20px!important;
+    padding:10px 10px 10px 20px!important;
     display: block;
     font-weight: 400;
     position: relative;

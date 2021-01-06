@@ -1,9 +1,6 @@
 function checkEmail(text){
     return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text))
 }
-function checkPassword(text){
-    return (/^.{8,}$/.test(text));
-}
 function checkPhone(number){
     return (/^(6|7|8|9)[0-9]{9}$/.test(number));
 }
@@ -23,7 +20,8 @@ function checkLand(number){
     return (/^[0-9]{11}$/.test(number));
 }
 
-var c=[0,0,0,0,0,0,0,0,0,0,0,0];
+
+var c=[0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 function valhstlname()
         {
             
@@ -200,6 +198,10 @@ function valMpin()
                 button();
     }   
 
+
+
+
+
 function button()
 {
     var l = c.length;
@@ -217,3 +219,5 @@ function button()
          document.getElementById("reg").disabled = true;
     }
 }
+
+

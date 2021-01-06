@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet' href='https://morrisjs.github.io/morris.js/css/morris.css'>
+<link rel="stylesheet" href="../css/student_dash.css">
+<script src="../js/student_dash.js"></script>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <div class="">
+    <header class="navbar-fixed-top">
+      <div class="row">
+        <div class="container-fluid">
+          <div class="pull-left">
+            <div class="pull-left logo text-center">
+              <span>LOGO</span>
+            </div>
+          </div>
+          <div class="pull-right">
+            <div class="marr20">
+              <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown user">
+                  <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class=
+                  "fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
+                  <ul class="dropdown-menu dropdown-user">
+                    <li>
+                      <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                  </ul><!-- /.dropdown-user -->
+                </li><!-- /.dropdown -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="wrap">
+      <div class="side-menu">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="navbar-header">
+            
+          </div><!-- Main Menu -->
+          <div class="side-menu-container">
+            <ul class="nav navbar-nav">
+              <li>
+                <a href="#dashboard" onclick="dashboard()"><span class="glyphicon glyphicon-send"></span> Dashboard</a>
+              </li>
+              <li >
+                <a href="#complaint" onclick="complaint()"><span class="glyphicon glyphicon-cog"></span> Register Complaint</a>
+              </li>
+              <li>
+                <a href="#notice" onclick="notice()"><span class="glyphicon glyphicon-th-list"></span> Notice View</a>
+              </li>
+              <li>
+                <a href="#laundry" onclick="laundry()"><span class="glyphicon glyphicon-triangle-right"></span> Laundary Information</a>
+              </li>
+              <li>
+                <a href="#mess" onclick="mess()"><span class="glyphicon glyphicon-triangle-right"></span> Mess detail View</a>
+              </li>
+              <li>
+                <a href="#vacate" onclick="vacate()"><span class="glyphicon glyphicon-triangle-right"></span> Vacating Form</a>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </nav>
+      </div>
+      <!--      Dashboard Begins -->
+      <div class="container-fluid" id="dashboard" style="display: inline;">
+        <div class="side-body">
+          <div class="page-title-box">
+            <h3 class="page-title pull-left">Dashboard</h3>
+            <div class="clearfix"></div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 col-sm-12">
+              <div class="row">
+
+                <div class="col-sm-6">
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <div class="row">
+                        <div class="col-xs-9">
+                          <div>
+                            <h3>Block Name : ccc<br>
+                            Room No : 534</h3>
+                          </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                          <i class="fa fa-home fa-5x"></i>
+                        </div> 
+                      </div>
+                    </div>
+                    <div class="panel-footer">
+                      Warden number
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                      <div class="row">
+                        <div class="col-xs-9">
+                          <div>
+                           <h3>Complaint Status</h3>
+                          </div>
+                          <div>
+                            <h5>Active</h5>
+                          </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                          <i class="fa  fa-5x">0</i>
+                        </div>
+                      </div>
+                    </div><a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left">View Details</span> <span class="pull-right"><i class=
+                      "fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div></a>
+                  </div>
+                </div>
+                
+                <div class="col-sm-6">
+                  <div class="panel panel-green">
+                    <div class="panel-heading">
+                      <div class="row">
+                        <div class="col-xs-9">
+                          <div>
+                            <h3>Laundry Update<br></h3><h5>In date : 23/89/2020</h5>
+                          </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                          Status
+                        </div> 
+                      </div>
+                    </div>
+                    <a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left">View Details</span> <span class="pull-right"><i class=
+                      "fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div></a>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="panel panel-red">
+                    <div class="panel-heading">
+                      <div class="row">
+                        <div class="col-xs-9">
+                          <div>
+                           <h3>Leave Request<br></h3><h5>Applied on : 23/89/2020</h5>
+                          </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                          Status
+                        </div>
+                      </div>
+                    </div><a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left">View Details</span> <span class="pull-right"><i class=
+                      "fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <i class="fa fa-bell fa-fw"></i> Notice Board
+                </div>
+                <div class="panel-body">
+                  <div class="list-group">
+                    <a class="list-group-item" href="#"> Notice 1</a> 
+                    <a class="list-group-item" href="#">notice 2 </a>
+                    <a class="list-group-item" href="#">notice 2 </a>
+                  </div><a class="btn btn-info btn-block" href="#">View All Notice</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <i class="fa fa-line-chart fa-fw"></i> Common Rules
+                </div>
+                <p class="padd20">something</p>
+                <div id="line-chart" style="height:250px;"></div>
+              </div>
+            </div> 
+            <div class="col-sm-4">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <i class="fas fa-utensils"></i> Mess info Updates  
+                </div>
+                <p class="padd20">food details</p>
+                <div id="donut-chart" style="height:250px"></div>
+              </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+      <!--      Dashboard ends--> 
+      
+      
+      
+      <!--  Register Complaint-->
+        <div class="container-fluid" id="complaint" style="display: none;">
+        <div class="side-body">
+          <div class="page-title-box">
+            <h3 class="page-title pull-left">Complaint Registration</h3>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+    </div>
+      <!--   Register complaint ends-->
+    
+     <!--  Notice publishing -->
+        <div class="container-fluid" id="notice" style="display: none;">
+        <div class="side-body">
+          <div class="page-title-box">
+            <h3 class="page-title pull-left">Notice List</h3>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+    </div>
+      <!--  Notice publishing  ends-->
+      
+      <!--  laundry section -->
+        <div class="container-fluid" id="laundry" style="display: none;">
+        <div class="side-body">
+          <div class="page-title-box">
+            <h3 class="page-title pull-left">Laundry List</h3>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+    </div>
+      <!--  laundry section ends-->
+      
+      <!--  mess -->
+        <div class="container-fluid" id="mess" style="display: none;">
+        <div class="side-body">
+          <div class="page-title-box">
+            <h3 class="page-title pull-left">Mess</h3>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+    </div>
+      <!--  mess ends-->
+    
+    <!--  vacating form -->
+        <div class="container-fluid" id="vacate" style="display: none;">
+        <div class="side-body">
+          <div class="page-title-box">
+            <h3 class="page-title pull-left">vacate</h3>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+    </div>
+      <!--  vacating form ends-->
+    
+    
+  </div>
+  </div>
+</body>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-1.12.4.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js'></script>
+<script src='https://cdn.oesmith.co.uk/morris-0.4.1.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script><script  src="js/student_dash.js"></script>
+
+</body>
+</html>
