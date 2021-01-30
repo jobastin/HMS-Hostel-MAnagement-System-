@@ -26,6 +26,7 @@ else
     ?>
     <script>
            alert("Block and Room added Successfully");
+           window.location.reload();
            window.location.replace("../manager/#block_allocation");
     </script>
 <?php

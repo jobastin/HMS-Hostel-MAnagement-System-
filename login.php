@@ -7,6 +7,7 @@ if (isset($_POST['login']))
     $con = connect();
     $user = $_POST['username-login'];
     $pass = $_POST['password-login'];
+    $pass=md5($pass);
     $res = mysqli_query($con, "SELECT * FROM `tbl_login` WHERE BINARY `username`='$user' AND `password`='$pass'") or die("Sign in Error");
      mysqli_close($con);
      if (mysqli_num_rows($res)==1){

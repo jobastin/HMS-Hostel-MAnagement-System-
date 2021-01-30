@@ -10,10 +10,10 @@ if(!empty($_POST["f_u"])) {
  if(mysqli_num_rows($query)){ 
      ?>
 <script>
-document.getElementById("fusername").style.borderColor = "green";
-document.getElementById("fphno").disabled = false;
-document.getElementById("npass").disabled = false;
-document.getElementById("ncpass").disabled = false;
+document.getElementById("fusername").style.borderColor = "#ced4da";
+document.getElementById("femail").disabled = false;
+c1[0]=1;
+button1();
 document.getElementById("msg").innerHTML = "<span></span>";
 </script>
 <?php
@@ -21,9 +21,9 @@ document.getElementById("msg").innerHTML = "<span></span>";
      ?>
 <script>
 document.getElementById("fusername").style.borderColor = "red";
-document.getElementById("fphno").disabled = true;
-document.getElementById("npass").disabled = true;
-document.getElementById("ncpass").disabled = true;
+document.getElementById("femail").disabled = true;
+c1[0]=0;
+button1();
 document.getElementById("fbutton").disabled = true;
 document.getElementById("msg").innerHTML = "<span>Enter a valid Username</span>";
 </script>
@@ -35,7 +35,7 @@ else
 { ?>
 <script>
 document.getElementById("fusername").style.borderColor = "red";
-document.getElementById("fphno").disabled = true;
+document.getElementById("femail").disabled = true;
 </script>
 <?php
 }

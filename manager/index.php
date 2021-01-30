@@ -47,7 +47,8 @@ else
     <script src="../js/calendar.js"></script>
     <script src="../js/reg_form%20(21).js"></script>
     <script type="text/javascript" src="../js/validateStudent.js"></script> 
-    <script type="text/javascript" src="../js/admindash1.js"></script>  
+    <script type="text/javascript" src="../js/admindash1.js"></script>
+    <script type="text/javascript" src="../js/student_dash_validation15.js"></script>
       
     <script>
         
@@ -111,11 +112,34 @@ $(document).ready(function(){
     });
 });           
         
-
+//reset password
+$(document).ready(function(){
+  $("#cpass1").blur(function(){
+    var pass1 = $("#cpass1").val();
+        $.ajax({  
+                url:"checkCPass.php",  
+                method:"post",  
+                data:{pass:pass1},  
+                success:function(data){  
+                if(data==1)
+                    {
+                    $("#npass1").removeAttr("disabled");
+                    $("#ncpass1").removeAttr("disabled");
+                    }
+                    if(data==0)
+                    {
+                    $("#npass1").attr("disabled", "disabled");
+                    $("#ncpass1").attr("disabled", "disabled");
+                    }
+                }  
+           });  
+  }); 
+});   
 
     
         
-</script>    
+</script>  
+      
     <!-- End -->
     
     <!-- External CSS -->
@@ -368,7 +392,7 @@ $(document).ready(function(){
             <!-- Nav Item - User Information -->
             
               <li class="nav-item dropdown no-arrow">
-                              <a class="dropdown-item" href="#">
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#EdiPassModal">
                   <i class="fas fa fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
                   Edit Profile
                 </a> 
@@ -426,7 +450,7 @@ $(document).ready(function(){
            <?php 
             $r1=mysqli_query($con,"SELECT COUNT(`room_no`) FROM `tbl_room` WHERE `hstl_id`=$hid")or die("Sign in Error");
             $c = mysqli_fetch_array($r1);
-            $r2=mysqli_query($con,"SELECT COUNT(`room_no`) FROM `tbl_room` WHERE `hstl_id`=1005 AND `vacent_status`=1 ")or die("Sign in Error");
+            $r2=mysqli_query($con,"SELECT COUNT(`room_no`) FROM `tbl_room` WHERE `hstl_id`=$hid AND `vacent_status`=1 ")or die("Sign in Error");
             $c1 = mysqli_fetch_array($r2);
             ?>
 									<div class="col-sm-3">
@@ -581,7 +605,6 @@ $(document).ready(function(){
                                                             <option value="Hindu" >Hindu</option>
                                                             <option value="Islam" >Islam</option>
                                                             <option value="Buddhism" >Buddhism</option>
-                                                            <option value="Other" >Other</option>
                                                         </select>
                                                     </td><td width="50px"></td>
                                                     <th valign="top">Caste</th>
@@ -1061,53 +1084,7 @@ $(document).ready(function(){
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
@@ -1138,41 +1115,7 @@ $(document).ready(function(){
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
@@ -1221,53 +1164,7 @@ $(document).ready(function(){
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editWardenModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteWardenModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editWardenModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteWardenModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
@@ -1300,41 +1197,7 @@ $(document).ready(function(){
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
@@ -1899,7 +1762,8 @@ $(document).ready(function(){
         <tr>
             <th scope="row">Block Name</th>
             <td>
-            <input type="text" name="Bname"  id="Bname" class="form-control" oninput="blockName();" onkeypress="return /[a-zA-Z ]/i.test(event.key)" required/>
+            <input type="text" name="Bname"  id="Bname" class="form-control" oninput="blockName();" 
+                   onkeypress="return /[a-zA-Z0-9 ]/i.test(event.key)" required/>
             </td>
         </tr>
         <tr>
@@ -2219,6 +2083,38 @@ $(document).ready(function(){
   </div>
 </div>
 <!-- delete complaint type Modal  ends -->   
+      
+<!-- edit password Modal  -->
+<div class="modal fade" id="EdiPassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="resetPass.php" method="POST">
+      <!-- Modal body -->
+      <div class="modal-body">
+            <input class="form-control" type="password" name="cpass1" id="cpass1"   placeholder="Enter Current Password" required>
+            <span id="msg1"></span>
+            <br>
+                <input class="form-control" type="password" name="npass1" id="npass1"  disabled oninput="valFPasswod()" placeholder="New Password" required>
+            <br>
+                <input class="form-control" type="password" name="ncpass1" id="ncpass1"  disabled oninput="valCFPasswod()"  placeholder="Confirm New Password" required>
+            <br>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <input type="submit" value="Update" id="Epass" disabled class="btn btn-primary" />
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- edit password Modal  ends --> 
       
 <script>
     

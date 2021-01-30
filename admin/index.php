@@ -11,7 +11,24 @@ else
 <!doctype html>
 <html lang="en">
   <head>
-    
+    <style>
+      .loader {
+  position: absolute;
+  top: 0;
+  bottom: 0%;
+  left: 0;
+  right: 0%;
+  background-color: white;
+  z-index: 99;
+}
+  .loader-img {
+      position:fixed;
+      top:50vh;
+      left:50vw;
+      transform: translate(-50%, -50%);
+
+  }
+      </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -64,7 +81,8 @@ else
 });
         
         
-</script>    
+</script> 
+
     <!-- End -->
     
     <!-- External CSS -->
@@ -73,6 +91,9 @@ else
     <link rel="stylesheet" type="text/css" href="../css/viewTbl.css">
     <link rel="stylesheet" type="text/css" href="../css/registraion_form.css">
     <link rel="stylesheet" type="text/css" href="../css/registration_form1.css">
+    <link rel="stylesheet" type="text/css" href="../css/adminMail.css">
+      
+      
     <title>HMS</title>
 	
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -85,9 +106,20 @@ else
 		 <script src="../js/admin.js"></script>
       
   </head>   
-  <body onload="renderDate()">
+  <body onload="renderDate()" >
+     
+<!--
+   <div id="myDiv">
+        <img id="loading-image" src="ajax-loader.gif" style="display:none;"/>
+    </div>      
+-->
+   <div class="loader" id="loading" style="display:none;">
+                <img   class="loader-img" src="../image/loader.svg" width="50px" height="50px">
+                  </div>
+    
+      
   <div id="wrapper">
-   <div class="overlay"></div>
+      
     
         <!-- Sidebar -->
     <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
@@ -137,10 +169,10 @@ else
 								<div class="col-lg-12 px-2">
 									<div class="submenu-box"> 
 										<ul class="list-unstyled m-0">
-											<li><a href="#emp_reg" onclick="Ereg()">Phone Number</a></li>
-											<br>
 											<li><a href="#emp_view" onclick="Eview()">Send Email</a></li>
                                             <br>
+                                            <li><a href="#emp_reg" onclick="Ereg()">Phone Number</a></li>
+											<br>
 										</ul>
 									</div>
 								</div>
@@ -152,6 +184,7 @@ else
 		  </li>
 		  
 		  
+<!--
 		   <li class="has-sub"> 
 		  <a class="nav-link collapsed text-left" href="#collapseExample3" role="button" data-toggle="collapse" >
         <i class="flaticon-user"></i>Manager Details</a>
@@ -172,6 +205,7 @@ else
 		     </div>
 		  </div>
 		  </li>
+-->
                      
 		  </ul>
 </div>
@@ -196,6 +230,8 @@ else
 			<div id="content">
 
        <div class="container-fluid p-0 px-lg-0 px-md-0">
+           
+   <div class="overlay"></div>
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light my-navbar">
 
@@ -213,12 +249,7 @@ else
             <ul class="navbar-nav ml-auto">
             <!-- Nav Item - User Information -->
             
-              <li class="nav-item dropdown no-arrow">
-                              <a class="dropdown-item" href="#">
-                  <i class="fas fa fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Edit Profile
-                </a> 
-            </li>
+              
              <li class="nav-item dropdown no-arrow">
                   <a class="dropdown-item" href="#"  id="logout" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -244,7 +275,11 @@ else
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title mb-4">Hostel Registered</h5>
-												<h1 class="display-5 mt-1 mb-3">0</h1>
+                                                <?php
+            $r1=mysqli_query($con,"SELECT COUNT(`hstl_id`) from tbl_hostel_reg")or die("Sign in Error");
+            $c = mysqli_fetch_array($r1);
+                                                ?>
+												<h1 class="display-5 mt-1 mb-3"><?php echo $c[0]; ?></h1>
 											</div>
 										</div>
 									</div>
@@ -252,7 +287,11 @@ else
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title mb-4">Total Inamtes</h5>
-												<h1 class="display-5 mt-1 mb-3">0</h1>
+                                                <?php
+            $r1=mysqli_query($con,"SELECT COUNT(`stu_id`) from tbl_student_info")or die("Sign in Error");
+            $c = mysqli_fetch_array($r1);
+                                                ?>
+												<h1 class="display-5 mt-1 mb-3"><?php echo $c[0]; ?></h1>
 											</div>
 										</div>
 										
@@ -269,8 +308,22 @@ else
 									<div class="col-sm-3">
 										<div class="card">
 											<div class="card-body">
+                                                 <?php
+                                    $bl=0;
+                                    $res=mysqli_query($con,"SELECT * FROM `tbl_hostel_manager` WHERE `status`=0")or die("Sign in Error");
+                                    while($s = mysqli_fetch_array($res))
+                                    {
+                                    $h6=$s['hstl_id'];
+                                    $q2=mysqli_query($con,"SELECT * FROM `tbl_hostel_reg` WHERE `hstl_id`=$h6 AND `status`=0")or die("Sign in Error");
+                                    $s1 = mysqli_fetch_array($q2);
+                                    if(mysqli_num_rows($q2)>0)
+                                    {
+                                    $bl++;
+                                    }
+                                    }
+                                    ?>
 												<h5 class="card-title mb-4">Blacklisted Hostels</h5>
-												<h1 class="display-5 mt-1 mb-3">0</h1>
+												<h1 class="display-5 mt-1 mb-3"><?php echo $bl; ?></h1>
 											</div>
 										</div>
 										
@@ -294,7 +347,8 @@ else
                   <div class="row">
                     <div class="col-lg-6" >
                      <div class="card border-success mb-3" style="max-width: auto;">
-                      <div class="card-header bg-transparent border"><h3><b>Notice Board</b></h3></div>
+                      <div class="card-header bg-transparent border"><h3><b>  </b></h3></div>
+<!--
                           <div class="card-body text-success" style="background-color: whitesmoke">
                             <p class="card-text">first one</p>
                           </div>
@@ -304,7 +358,8 @@ else
                           <div class="card-body text-success" style="background-color: whitesmoke">
                             <p class="card-text">Something</p>
                           </div>
-              <div class="card-footer bg-transparent"><a href="#">View all</a></div>
+-->
+<!--              <div class="card-footer bg-transparent"><a href="#">View all</a></div>-->
 </div>
                      
                      
@@ -501,74 +556,69 @@ else
 		<div class="row" id="stu_vacate" style="display: none;">
 		<div class="col-md-12 mt-4">
 		
+            
+            
+            
 		<div class="container-xl">
 	    <div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Vacated Students</h2>
+						<h2>Blacklisted Hostel</h2>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
+						<th>SI No</th>
+						<th>Name Of Manager</th>
+						<th>Name of Hostel</th>
+						<th>Detailed View</th>
+                        <th>Reassign</th>
 					</tr>
 				</thead>
 				<tbody>
+                    <?php
+                     $f=1;
+                     $q1=mysqli_query($con,"SELECT * FROM `tbl_hostel_manager` WHERE `status`=0")or die("Sign in Error");
+                     if(mysqli_num_rows($q1)>0)
+                        {
+                         while($v = mysqli_fetch_array($q1))
+                         {
+                         $h=$v['hstl_id'];
+                         $q2=mysqli_query($con,"SELECT * FROM `tbl_hostel_reg` WHERE `hstl_id`=$h AND `status`=0")or die("Sign in Error");
+                         $v1 = mysqli_fetch_array($q2);
+                         if(mysqli_num_rows($q2)>0)
+                         {
+                        ?>
 					<tr>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
+						<td><?php echo $f++ ?></td>
+						<td><?php echo $v['hstl_manager_name']; ?></td>
+						<td><?php echo $v1['hstl_name']; ?></td>
+						<td><a href="#" id="<?php echo $v['hstl_id']; ?>" class="hostelViewMore" ><i class="material-icons" data-toggle="tooltip" title="View More" style="color:blue">remove_red_eye</i></a></td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="#reModel" id="<?php echo $v['hstl_id']; ?>" class="reassign" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Make as Active" style="color:green">autorenew</i></a>
 						</td>
 					</tr>
-					<tr>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
+                    <?php 
+                         }}} 
+                    else
+                    {
+                    ?>
+                    <tr>
+                    <td colspan="5"><center>No pending Request !!!!</center></td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
 				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
+    
 		</div>
 		</div>
 		<!-- Student Vacated ends -->
@@ -576,7 +626,67 @@ else
 		<!-- Phone number view -->
 		<div class="row" id="emp_reg" style="display: none;">
 		<div class="col-md-12 mt-4">
-		Phone number view
+		
+        <div class="container-xl">
+	    <div class="table-responsive">
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-6">
+						<h2>Contact Details</h2>
+					</div>
+				</div>
+			</div>
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>SI No</th>
+						<th>Name Of Manager</th>
+                        <th>Mobile Number</th>
+						<th>Name of Hostel</th>
+						<th>Telephone Number</th>
+                        <th>Mobile Number</th>
+					</tr>
+				</thead>
+				<tbody>
+                    <?php
+                     $f=1;
+                     $q1=mysqli_query($con,"SELECT * FROM `tbl_hostel_manager` WHERE `status`=1")or die("Sign in Error");
+                     if(mysqli_num_rows($q1)>0)
+                        {
+                         while($v = mysqli_fetch_array($q1))
+                         {
+                         $h=$v['hstl_id'];
+                         $q2=mysqli_query($con,"SELECT * FROM `tbl_hostel_reg` WHERE `hstl_id`=$h AND `status`=1")or die("Sign in Error");
+                         $v1 = mysqli_fetch_array($q2);
+                         if(mysqli_num_rows($q2)>0)
+                         {
+                        ?>
+					<tr>
+						<td><?php echo $f++ ?></td>
+						<td><?php echo $v['hstl_manager_name']; ?></td>
+						<td><?php echo $v['hstl_manager_phno']; ?></td>
+						<td><?php echo $v1['hstl_name']; ?></td>
+                        <td><?php echo $v1['hstl_land']; ?></td>
+                        <td><?php echo $v1['hstl_mob']; ?></td>
+					</tr>
+                    <?php 
+                         }}} 
+                    else
+                    {
+                    ?>
+                    <tr>
+                    <td colspan="6"><center>No pending Request !!!!</center></td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
+				</tbody>
+			</table>
+		</div>
+	</div>        
+</div>    
+            
 		</div>
 		</div>
 		<!-- Phone number view ends -->
@@ -584,316 +694,54 @@ else
 		<!-- Employee view -->
 		<div class="row" id="emp_view" style="display: none;">
 			<div class="col-md-12 mt-4">
-			<div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Manage <b>Employees</b></h2>
-					</div>
-					<div class="col-sm-6">
-						<a href="#emp_reg" onclick="Ereg()" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-					</div>
-				</div>
-			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>        
+                
+                <div class="container">  
+                <form id="contact" action="adminMail.php" method="post">
+                <h3>Send Mail</h3>
+                <fieldset>
+                <!-- <input placeholder="Your name" type="text" tabindex="1" required autofocus>-->
+                     <select class="form-control" name="hstlid" id="hstlid" required>
+                         <option value="">-Select-</option>
+                         
+                         
+                         <?php
+                                    $res=mysqli_query($con,"SELECT * FROM `tbl_hostel_manager` WHERE `status`=1")or die("Sign in Error");
+                                    while($s = mysqli_fetch_array($res))
+                                    {
+                                    $h5=$s['hstl_id'];
+                                    $q2=mysqli_query($con,"SELECT * FROM `tbl_hostel_reg` WHERE `hstl_id`=$h5 AND `status`=1")or die("Sign in Error");
+                                    $s1 = mysqli_fetch_array($q2);
+                                    if(mysqli_num_rows($q2)>0)
+                                    {
+                                        ?>
+                                        <option value="<?php echo $h5; ?>" id="<?php echo $h5; ?>" ><?php echo $s1['hstl_name'].':   :'.$s['hstl_manager_email']; ?></option>
+                                    <?php
+                                    }
+                                    }
+                                    ?>
+                         
+                     </select>    
+                </fieldset>
+                <fieldset>
+                  <input placeholder="Enter the Subject" type="text" name="emailSub" id="emailSub" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                  <textarea placeholder="Type your Message Here...." id="emailBody" name="emailBody" tabindex="5" required></textarea>
+                </fieldset>
+                <fieldset>
+<!--                  <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>-->
+                <input type="submit" id="mailsend" value="Send Mail" class="btn btn-primary" />
+                </fieldset>
+              </form>
+ 
+  
 </div>
+                
+                
+                
 			</div>
 		</div>
 			<!-- Employee view ends -->
-
-		<!-- Employee deleted -->
-		<div class="row" id="emp_del" style="display: none;">
-			<div class="col-md-12 mt-4">
-					<div class="container-xl">
-	    <div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Employee Resigned/ Removed</h2>
-					</div>
-				</div>
-			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>        
-</div>
-			</div>
-		</div>
-		<!-- Employee deleted ends -->
-
-		<!-- Warden Regitration-->
-		<div class="row" id="war_reg" style="display: none;">
-			<div class="col-md-12 mt-4">
-			 register warden
-			</div>
-		</div>
-		<!-- Warden Regitration ends -->
-
-		<!-- warden view -->
-		<div class="row" id="war_view" style="display: none;">
-			<div class="col-md-12 mt-4">
-			<div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Manage <b>Warden</b></h2>
-					</div>
-					<div class="col-sm-6">
-						<a href="#war_reg" onclick="Wreg()" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New Warden</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-					</div>
-				</div>
-			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editWardenModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteWardenModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editWardenModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteWardenModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>        
-</div>
-			
-			
-			</div>
-		</div>
-		<!-- Warden view ends -->
-
-		<!-- warden dismissed -->
-		<div class="row" id="war_del" style="display: none;">
-			<div class="col-md-12 mt-4">
-					<div class="container-xl">
-	    <div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Warden Resigned / Dismissed</h2>
-					</div>
-				</div>
-			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>        
-</div>
-			</div>
-		</div>
-		<!-- Warden dismissed ends -->
 
 
 
@@ -954,6 +802,30 @@ else
 <!-- Delete  student Modal  ends -->
 
 
+ <!-- Reassign hostel --> 
+   <div id="reModel" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Confirmation</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Send Confirmation Message....</label>
+					</div>			
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="No">
+					<input type="submit" id="reBtn" class="btn btn-info" value="Approve">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+    <!-- Reassign hostel ends -->       
+      
 <!-- Edit employee Modal -->
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
@@ -1203,10 +1075,17 @@ $(document).ready(function(){
             
         $.ajax({  
                 url:"ApproveMail.php",  
-                method:"post",  
-                data:{ha:ha},  
+                method:"post",
+                data:{ha:ha},
+                beforeSend: function(){
+                $("#loading").show();
+                },   
+                ajaxSuccess: function(){
+                $("#loading").hide();
+                },   
                 success:function(data){  
                      alert(data);
+                     $("#loading-image").hide();
                      location.reload();
                 }  
            });  
@@ -1214,6 +1093,64 @@ $(document).ready(function(){
         
     });
 });     
+     
+function loader()
+      {
+    document.getElementById("loading").style.display="block";
+    var delay = 5;
+    var els = document.getElementsByClassName('external-link');
+    var loader = document.getElementById('loading');
+
+  for(var i = 0;i < els.length;i++){
+      els[i].addEventListener('click', function(e) {
+          var source = e.target || e.srcElement;
+          e.preventDefault();
+          loader.className = loader.className.replace('hidden', '');
+
+          setTimeout(function() {
+              window.open(source.href);
+              loader.className += 'hidden';
+          }, delay);
+      }, false);
+  }
+  }
+
+        function unloader()
+  {
+    document.getElementById("loading").style.display="none";
+  }
+  
+     
+//Reassign hostel
+$(document).ready(function(){
+    var re;
+    $('.reassign').click(function() {
+        re = $(this).attr("id"); 
+        $('#reModel').modal("show"); 
+        
+        $('#reBtn').click(function() {
+        $('#reModel').modal("hide");
+            
+        $.ajax({  
+                url:"reAssign.php",  
+                method:"post",  
+                data:{re:re},
+                beforeSend: function(){
+                $("#loading").show();
+                },   
+                ajaxSuccess: function(){
+                $("#loading").hide();
+                },    
+                success:function(data){  
+                     alert(data);
+                     location.reload();
+                },  
+           });      
+    });
+        
+    });
+});   
+     
      
   </script>
   </body>

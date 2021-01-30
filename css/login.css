@@ -84,7 +84,7 @@ input {
 }
 .left input {
   border-bottom: 1px solid #e3e3e3;
-  color: #e3e3e3;
+  color: black;
 }
 .left input:focus, .left input:active {
   border-color: #03A9F4;

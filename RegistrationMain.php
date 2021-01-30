@@ -1,14 +1,14 @@
-<?php
-require('fun.php');
-$con = connect();
-?>
-<html lang="en" >
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,600' rel='stylesheet' type='text/css'><link rel="stylesheet" href="css/login.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Saurav">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<title>Responsive Registration Form Template</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 	<link href="registraion_form.css" rel="stylesheet">
     <link href="registration_form1.css" rel="stylesheet">
     <script src="test.js"></script>
@@ -16,7 +16,7 @@ $con = connect();
     <script src="registraion_form.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
     //for district selection
 $(document).ready(function(){
@@ -25,7 +25,7 @@ $(document).ready(function(){
         if(countryID){
             $.ajax({
                 type:'post',
-                url:'district.php',
+                url:"district.php/district()",
                 data:'st_id='+countryID,
                 success:function(html){
                     $('#permdistrict').html(html); 
@@ -55,23 +55,61 @@ $(document).ready(function(){
         }
     });
 });
-</script>  
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<div id="back">
-  <canvas id="canvas" class="canvas-back"></canvas>
-  <div class="backRight">    
-  </div>
-  <div class="backLeft">
-  </div>
-</div>
+        
+$(document).ready(function(){
+  $("#fusername").on('input', function(){
+    var fu = $(this).val();
+    if(fu){
+            $.ajax({
+                type:'post',
+                url:'Fusername.php',
+                data:'f_u='+fu,
+                success:function(html){
+                    $('#fusername').html(html); 
+                    
+                }
+            }); 
+        }else{
+            $('#npass').prop( "disabled", true );
+        }
+  });
+});
 
-<div id="slideBox">
-  <div class="topLayer">
-    <div class="left">
-      <div class="content">
-        <h2>Registration Page </h2>
+//$(document).ready(function(){
+//  $("#fphno").on('input', function(){
+//    var fp = $(this).val();
+//    if(fp){
+//            $.ajax({
+//                type:'post',
+//                url:'Fphno.php',
+//                data:'f_p='+fp,
+//                success:function(html){
+//                    $('#fphno').html(html); 
+//
+//                }
+//            }); 
+//        }else{
+//
+//        }
+//  });
+//});
+        
+</script>  
+    
+</head>
+
+<body class="bg-light">
+ <div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="image/logo.jpg" alt="" width="72" height="72">
+    <h2>Registration Page</h2>
+  </div>
+ </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+     
+         <div class="content">
          <div class="form-element form-submit">
             <button id="goLeft" class="signup off" style="float: right;">Back to Login</button> 
           </div>
@@ -169,13 +207,9 @@ $(document).ready(function(){
                                                      <td width="50px"></td><th valign="top">Mobile</th>
                                                     <td><input type="text" class="form-control" name="Mmobile" id="Mmobile" onkeypress="return /[0-9]/i.test(event.key)" onblur="valMmobile()" placeholder="10 digit molie number" required /></td>
                                                 </tr>
-                                                <tr>
-                                                    <td colspan="5">
-                                                    </td>
-
-                                                </tr> 
+                                                
                                                 <tr><td colspan="5">
-                                                <hr></td>
+                                                </td>
                                                 </tr>
                                                  <tr>
                                                     <th colspan="5" colspan="2" style="text-align:center;/*border1px solid #ccc*/"> Address
@@ -220,19 +254,21 @@ $(document).ready(function(){
                                                         <tr>
                                                         <tr>
                                                     <th valign="top">USERNAME</th>
-                                                    <td><input type="text" class="form-control" name="Muname" placeholder="username" required />
+                                                    <td><input type="text" class="form-control" name="Muname"  id="Muname" placeholder="username" onblur="valUsername()" required />
                                                             <br>
-                                                            <span>Can contain letters (a-z), numbers (0-9)</span></td>
+                                                        <span id="user-availability-status">Can contain letters (a-z, A-Z), numbers (0-9)
+                                                        </span>    
+                                                        </td>
                                                      <td width="50px"></td><th valign="top">PASSWORD</th>
-                                                    <td><input type="password" class="form-control" name="Mpass" id="Mpass" placeholder="********" required />
+                                                    <td><input type="password" class="form-control" name="Mpass" id="Mpass" placeholder="********" onblur="valPasswod()" required />
                                                     <br>
                                                             <span>Minimum length 8</span>
                                                             </td>
                                                 </tr>
                                                 
                                                 <tr>
-                                                    <th valign="top">CONFRIM PASSWORD</th>
-                                                    <td><input type="password" class="form-control" name="Mcpass" id="Mcpass" placeholder="********" required />
+                                                    <th valign="top">CONFIRM PASSWORD</th>
+                                                    <td><input type="password" class="form-control" name="Mcpass" id="Mcpass" placeholder="********" onblur="valCPasswod()" required />
                                                     <span id='message'></span></td>
                                                      <td width="50px">
                                                 </tr>
@@ -248,50 +284,36 @@ $(document).ready(function(){
                                                  </td>
                                                  </tr>
                                         </table>
-                                        
                                         </form>
       </div>
-    </div>
-    <div class="right">
-      <div class="content1">
-        <h2>Login</h2>
-        <form id="form-login" method="post" onsubmit="return false;">
-          <div class="form-element form-stack">
-            <label for="username-login" class="form-label"><h5>Username</h5></label>
-            <input id="username-login" type="text" name="username">
-          </div>
-          <div class="form-element form-stack">
-            <label for="password-login" class="form-label"><h5>Password</h5></label>
-            <input id="password-login" type="password" name="password">
-          </div>
-          <div class="form-element form-submit">
-            <button id="logIn" class="login" type="submit" name="login">Log In</button>
-            <a href="#" style="float: right;">Forgot Password ??</a>
-            <br>
-            <br>
-            <button id="goRight" class="login off" name="signup">Register a Hostel</button>
-          </div>
-        </form>
-      </div>
+        
+        
+        
     </div>
   </div>
-</div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.3/paper-full.min.js'></script>
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2020-2021 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+  </div>
+
 <script  src="js/login.js"></script>
 <script>
-    
-    $('#Mpass, #Mcpass').on('keyup', function () {
-  if ($('#Mpass').val() == $('#Mcpass').val()) {
-    $('#message').html('Matching').css('color', 'green');
-  } else 
-    $('#message').html('Not Matching').css('color', 'red');
-});
     
 function checkName(text){
     return (/^[A-Za-z ]+$/.test(text));
 }
-var c=[0,0,0,0,0,0,0,0,0,0,0,0];
+function checkUsername(text){
+    return (/^[A-Za-z0-9]+$/.test(text));
+}
+function checkPassword(text){
+    return (/^.{8,}$/.test(text));
+}
+var c=[0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 function valhstlname()
         {
             
@@ -307,6 +329,156 @@ function valhstlname()
                 }
                 button();
         }
-    </script>
+    
+function valUsername()
+    {
+//        var mu = document.getElementsByName('Muname')[0];
+//            if (checkUsername(mu.value)){
+//                //document.getElementById("Muname").style.borderColor = "green";
+//                c[12]=1; 
+//            } 
+//            else
+//                {
+//                //document.getElementById("Muname").style.borderColor = "red"; 
+//                c[12]=0;
+//            }
+//            button();
+jQuery.ajax({
+url: "checkUsername.php",
+data:'username='+$("#Muname").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status").html(data);
+},
+error:function (){
+}
+});
+} 
+    
+
+function valhstlEmail()
+        {
+//            var he = document.getElementsByName('hstlemail')[0];
+//            if (checkEmail(he.value)){
+//                document.getElementById("hstlemail").style.borderColor = "green";
+//                c[2]=1;    
+//            } 
+//            else
+//                {
+//                document.getElementById("hstlemail").style.borderColor = "red"; 
+//                c[2]=0; 
+//            }
+//            button();
+            
+            
+jQuery.ajax({
+url: "checkHostelMail.php",
+data:'hemail='+$("#hstlemail").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status1").html(data);
+},
+error:function (){
+}
+});
+            
+        }
+    
+function valMemail()
+    {
+//        var me = document.getElementsByName('Memail')[0];
+//        if (checkEmail(me.value)){
+//            document.getElementById("Memail").style.borderColor = "green";
+//            c[8]=1; 
+//        } 
+//        else
+//            {
+//            document.getElementById("Memail").style.borderColor = "red"; 
+//            c[8]=0;
+//        }
+//            button();
+        
+jQuery.ajax({
+url: "checkManagerMail.php",
+data:'memail='+$("#Memail").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status2").html(data);
+},
+error:function (){
+}
+});
+    }
+    
+function valPasswod()
+    {
+        var mu = document.getElementsByName('Mpass')[0];
+            if (checkPassword(mu.value)){
+                document.getElementById("Mpass").style.borderColor = "green";
+                c[13]=1;
+            } 
+            else
+                {
+                document.getElementById("Mpass").style.borderColor = "red"; 
+                c[13]=0;
+            }
+                button();
+    }   
+    
+function valCPasswod()
+    {
+        var mc = document.getElementsByName('Mcpass')[0];
+        var mu = document.getElementsByName('Mpass')[0];
+            if ((checkPassword(mc.value))&&(mc.value == mu.value)&&(mc.value!= null)){
+                document.getElementById("Mcpass").style.borderColor = "green";
+                c[14]=1;
+            } 
+            else 
+                {
+                document.getElementById("Mcpass").style.borderColor = "red"; 
+                c[14]=0;
+            }
+                button();
+    }   
+//forgot password
+function valFPasswod()
+    {
+        var mu = document.getElementsByName('npass')[0];
+            if (checkPassword(mu.value)){
+                document.getElementById("npass").style.borderColor = "green";
+            } 
+            else
+                {
+                document.getElementById("npass").style.borderColor = "red"; 
+            }
+    }   
+    
+function valCFPasswod()
+    {
+        var mc = document.getElementsByName('ncpass')[0];
+        var mu = document.getElementsByName('npass')[0];
+            if ((checkPassword(mc.value))&&(mc.value == mu.value)&&(mc.value!= null)){
+                document.getElementById("ncpass").style.borderColor = "green";
+                document.getElementById("fbutton").disabled = false;
+            } 
+            else 
+                {
+                document.getElementById("ncpass").style.borderColor = "red"; 
+            }
+    }   
+    
+function valFhstlMob()
+    {
+        var hm = document.getElementsByName('fphno')[0];
+            if (checkPhone(hm.value)){
+                document.getElementById("fphno").style.borderColor = "green";
+            } 
+            else
+                {
+                document.getElementById("fphno").style.borderColor = "red"; 
+            }
+    }     
+    </script>    
+    
 </body>
 </html>

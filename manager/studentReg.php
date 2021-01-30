@@ -1,5 +1,7 @@
 <?php
 require('../fun.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 $con = connect();
 if(sessioncheck() == false)
 {
@@ -49,6 +51,37 @@ else
     $m = mysqli_fetch_array($q2);
     $stu_user=$m[0]+1;
     
+    
+    require '../mail/vendor/autoload.php';
+    $message = "<p>Hey,". $stu_name  ."<br>Your accout is Active<br></p>";
+    $message .= "<p>Login Id :<b>".$stu_user."</b></p>";
+    $message .= "<p>Default Password :<b>".$stu_pass."</b></p>";
+    $message .= "<p>Block Name :<b>".$stu_block."</b></p>";
+    $message .= "<p>Room Number :<b>".$stu_room."</b></p>";
+    $mail = new PHPMailer(true);
+
+
+        //Server settings
+        $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+        $mail->isSMTP();                                            // Set mailer to use SMTP
+        $mail->Host       = 'smtp.gmail.com;';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'adhinbabu1998@gmail.com';                     // SMTP username
+        $mail->Password   = 'Adhin@123';                               // SMTP password
+        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+        $mail->Port       = 587;                                    // TCP port to connect to
+
+        $mail->setFrom('adhinbabu1998@gmail.com', 'HMS');
+        //Recipients
+        $mail->addAddress($stu_mail);
+ 
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "HMS : Welcome";
+        $mail->Body    = $message;
+        $mail->send();
+    
+    $stu_pass=md5($stu_pass);
     
     $q4="INSERT INTO tbl_login (username,password,role,status) VALUES ('$stu_user','$stu_pass','student',1)";
     mysqli_query($con,$q4);

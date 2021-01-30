@@ -14,11 +14,11 @@ $con = connect();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link href="registraion_form.css" rel="stylesheet">
-    <link href="registration_form1.css" rel="stylesheet">
-    <script src="test.js"></script>
-    <script language="JavaScript" src="js/validate.js"></script>
-    <script src="registraion_form.js"></script>
+	<link href="css/registraion_form.css" rel="stylesheet">
+    <link href="css/registration_form1.css" rel="stylesheet">
+    
+    <script language="JavaScript" src="js/validate1.js"></script>
+    <script src="js/registraion_form.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -60,10 +60,12 @@ $(document).ready(function(){
         }
     });
 });
+    
+var fu;
         
 $(document).ready(function(){
   $("#fusername").on('input', function(){
-    var fu = $(this).val();
+    fu = $(this).val();
     if(fu){
             $.ajax({
                 type:'post',
@@ -75,10 +77,42 @@ $(document).ready(function(){
                 }
             }); 
         }else{
-            $('#npass').prop( "disabled", true );
+            //$('#npass').prop( "disabled", true );
         }
   });
 });
+       var fe; 
+$(document).ready(function(){
+  $("#femail").on('blur', function(){
+    fe = $(this).val();
+    if(fe){
+            $.ajax({
+                type:'post',
+                url:'Femail.php',
+                data:{fe:fe,fu:fu},
+                success:function(html){
+                    $('#femail').html(html); 
+                    
+                }
+            }); 
+        }else{
+            //$('#npass').prop( "disabled", true );
+        }
+  });
+    
+ $('#fbutton').click(function() {
+        $.ajax({  
+                url:"ResetpasswordMail.php",  
+                method:"post",  
+                data:{fe:fe,fu:fu},  
+                success:function(data){  
+                     alert(data);
+                }  
+           });  
+    });
+    
+});
+        
 
 //$(document).ready(function(){
 //  $("#fphno").on('input', function(){
@@ -141,7 +175,10 @@ $(document).ready(function(){
                                                     <th valign="top">Total Capacity</th>
                                                     <td><input type="number" class="form-control" name="totalcap" placeholder="Max Capacity of Hostel" id="totalcap" onblur="valCapacity();" required /></td>
                                                     <td width="50px" valign="top"></td><th>Email</th>
-                                                    <td><input type="email" class="form-control" name="hstlemail" id="hstlemail" placeholder="example@something.com" onblur="valhstlEmail();" required /></td>
+                                                    <td><input type="email" class="form-control" name="hstlemail" id="hstlemail" placeholder="example@something.com" onblur="valhstlEmail();" required />
+                                                    <br>
+                                                        <span id="user-availability-status1"></span>
+                                                    </td>
                                                 </tr>
                                                 
                                                 <tr>
@@ -209,7 +246,10 @@ $(document).ready(function(){
 												</tr>
                                                 <tr>
                                                     <th valign="top">Email</th>
-                                                    <td><input type="email" class="form-control" name="Memail" id="Memail" onblur="valMemail()" placeholder="example@something.com" required /></td>
+                                                    <td><input type="email" class="form-control" name="Memail" id="Memail" onblur="valMemail()" placeholder="example@something.com" required />
+                                                    <br>
+                                                        <span id="user-availability-status2"></span>
+                                                    </td>
                                                      <td width="50px"></td><th valign="top">Mobile</th>
                                                     <td><input type="text" class="form-control" name="Mmobile" id="Mmobile" onkeypress="return /[0-9]/i.test(event.key)" onblur="valMmobile()" placeholder="10 digit molie number" required /></td>
                                                 </tr>
@@ -375,7 +415,63 @@ $("#user-availability-status").html(data);
 error:function (){
 }
 });
-}  
+} 
+    
+
+function valhstlEmail()
+        {
+//            var he = document.getElementsByName('hstlemail')[0];
+//            if (checkEmail(he.value)){
+//                document.getElementById("hstlemail").style.borderColor = "green";
+//                c[2]=1;    
+//            } 
+//            else
+//                {
+//                document.getElementById("hstlemail").style.borderColor = "red"; 
+//                c[2]=0; 
+//            }
+//            button();
+            
+            
+jQuery.ajax({
+url: "checkHostelMail.php",
+data:'hemail='+$("#hstlemail").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status1").html(data);
+},
+error:function (){
+}
+});
+            
+        }
+    
+function valMemail()
+    {
+//        var me = document.getElementsByName('Memail')[0];
+//        if (checkEmail(me.value)){
+//            document.getElementById("Memail").style.borderColor = "green";
+//            c[8]=1; 
+//        } 
+//        else
+//            {
+//            document.getElementById("Memail").style.borderColor = "red"; 
+//            c[8]=0;
+//        }
+//            button();
+        
+jQuery.ajax({
+url: "checkManagerMail.php",
+data:'memail='+$("#Memail").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status2").html(data);
+},
+error:function (){
+}
+});
+    }
+    
 function valPasswod()
     {
         var mu = document.getElementsByName('Mpass')[0];
@@ -407,43 +503,45 @@ function valCPasswod()
                 button();
     }   
 //forgot password
-function valFPasswod()
-    {
-        var mu = document.getElementsByName('npass')[0];
-            if (checkPassword(mu.value)){
-                document.getElementById("npass").style.borderColor = "green";
-            } 
-            else
-                {
-                document.getElementById("npass").style.borderColor = "red"; 
-            }
-    }   
+var c1=[0,0];
+
     
-function valCFPasswod()
+function button1()
+{
+    var l1 = c1.length;
+    var s1=0;
+    for(var i=0;i<l1;i++)
     {
-        var mc = document.getElementsByName('ncpass')[0];
-        var mu = document.getElementsByName('npass')[0];
-            if ((checkPassword(mc.value))&&(mc.value == mu.value)&&(mc.value!= null)){
-                document.getElementById("ncpass").style.borderColor = "green";
-                document.getElementById("fbutton").disabled = false;
-            } 
-            else 
-                {
-                document.getElementById("ncpass").style.borderColor = "red"; 
-            }
-    }   
+        s1=s1+c1[i];
+    }
+    if(l1==s1)
+    {
+        document.getElementById("fbutton").disabled = false;
+    }
+    else
+    {
+         document.getElementById("fbutton").disabled = true;
+    }
+}    
     
-function valFhstlMob()
-    {
-        var hm = document.getElementsByName('fphno')[0];
-            if (checkPhone(hm.value)){
-                document.getElementById("fphno").style.borderColor = "green";
-            } 
-            else
-                {
-                document.getElementById("fphno").style.borderColor = "red"; 
-            }
-    }     
+function checkEmail(text){
+    return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text))
+}    
+//    
+//function valFEmail()
+//    {
+//        var me = document.getElementsByName('femail')[0];
+//        if (checkEmail(me.value)){
+//            document.getElementById("femail").style.borderColor = "green";
+//            c1[1]=1;
+//        } 
+//        else
+//            {
+//            document.getElementById("femail").style.borderColor = "red"; 
+//            c1[1]=0;    
+//        }
+//        button1();
+//    }
     </script>
 
 <!--forgot password modal-->
@@ -456,12 +554,18 @@ function valFhstlMob()
         <h4 class="modal-title">Forgot password ??</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form action="forgot.php" method="POST">
+      <form action="#" method="POST">
       <!-- Modal body -->
       <div class="modal-body">
           
             <input class="form-control"  name="fusername" id="fusername" type="text" placeholder="Username" required>
-            <span id="msg"></span>
+            <span id="msg" style="color:red"></span>
+            <br>
+            <input class="form-control" type="email" name="femail" disabled id="femail" placeholder="Registered Email" 
+                        required>
+            <span id="msg1" style="color:red"></span>
+
+<!--
             <br>
                 <input class="form-control" type="text" name="fphno" disabled id="fphno" placeholder="Mobile Number" 
                        onkeypress="return /[0-9]/i.test(event.key)" required onblur="valFhstlMob()">
@@ -470,19 +574,33 @@ function valFhstlMob()
             <br>
                 <input class="form-control" type="password" name="ncpass" id="ncpass" onblur="valCFPasswod()" disabled placeholder="Confirm New Password" required>
             <br>
+-->
           
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <input type="submit" value="Update" id="fbutton" disabled class="btn btn-primary" />
+        <input type="submit" value="Reset Password" id="fbutton" disabled class="btn btn-primary" />
       </div>
       </form>
     </div>
   </div>
 </div>
 <!--forgot password modal ends-->
-    
+<?php
+//CHECKING FOR REGISTRATION PAGE LINK
+if (isset($_GET['page'])){ ?>
+    <script>
+        console.log("working");
+    $('#slideBox').animate({
+      'marginLeft' : '0'
+    });
+    $('.topLayer').animate({
+      'marginLeft' : '100%'
+  });
+        
+    </script>
+<?php } ?>
 </body>
 </html>

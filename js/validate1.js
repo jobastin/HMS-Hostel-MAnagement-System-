@@ -54,20 +54,20 @@ function valCapacity()
                 button();
         }
 
-function valhstlEmail()
-        {
-            var he = document.getElementsByName('hstlemail')[0];
-            if (checkEmail(he.value)){
-                document.getElementById("hstlemail").style.borderColor = "green";
-                c[2]=1;    
-            } 
-            else
-                {
-                document.getElementById("hstlemail").style.borderColor = "red"; 
-                c[2]=0; 
-            }
-            button();
-        }
+//function valhstlEmail()
+//        {
+//            var he = document.getElementsByName('hstlemail')[0];
+//            if (checkEmail(he.value)){
+//                document.getElementById("hstlemail").style.borderColor = "green";
+//                c[2]=1;    
+//            } 
+//            else
+//                {
+//                document.getElementById("hstlemail").style.borderColor = "red"; 
+//                c[2]=0; 
+//            }
+//            button();
+//        }
 function valhstlMob()
     {
         var hm = document.getElementsByName('hstlmob')[0];
